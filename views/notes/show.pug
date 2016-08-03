@@ -1,0 +1,22 @@
+extends ../layout
+
+block content
+  h1= note.title
+  p= note.body
+  p Created: #{note.formatedDate()}
+  .form-group  
+    form(action=`/notes/${note.id}?_method=delete` method='post')
+      .btn-toolbar 
+        a(href=`/notes/${note.id}/edit`)
+          button.btn.btn-success Edit Post
+        input.btn.btn-danger(type='submit' value='Delete Post')
+  hr
+  h2 Add a comment
+  form(method="POST" action=`/notes/${note.id}/add_reply`)
+    .form-group 
+      label(for="body") Body
+      textarea.form-control#body( name="body")
+    .form-group    
+      input.btn.btn-primary(type="submit" value="Reply")
+
+ 

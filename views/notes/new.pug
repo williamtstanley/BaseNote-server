@@ -1,0 +1,18 @@
+extends ../layout
+
+block content
+  h1 New Note
+  form(method="POST" action="/notes")
+    .form-group(class= errors.title? 'has-error' : "")
+      label(for="title") Title
+      input.form-control#title(name="title" type="text" value=note.title)
+      - if(errors.title)
+        .help-block= errors.title
+    .form-group(class= errors.body? 'has-error' : "") 
+      label(for="body") Body
+      textarea.form-control#body( name="body")= note.body
+      - if(errors.body)
+        .help-block= errors.body
+    .form-group    
+      input.btn.btn-primary(type="submit" value="save")
+

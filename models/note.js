@@ -3,9 +3,8 @@ var Schema = mongoose.Schema;
 
 
 var NoteSchema = new Schema({
-  title: {type: String, required: true},
+  subject: {type: String, required: true},
   body: {type: String, required: true},
-  rawHtml: String,
   company_id: String,
   contact_id: String,
   basenote_id: String,

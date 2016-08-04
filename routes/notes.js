@@ -10,24 +10,25 @@ router.get("/", function(request, response, next){
       err.status = 404;
       next(err, response, request);
     }else{
-      response.render("notes/index", {notes: notes});
+      response.render("notes/index", {notes: notes, user: request.user});
     }
   });
 });
 
 // New
 router.get("/new", function(request, response){
-  response.render("notes/new", {errors: {}, note:{}} );
+  response.render("notes/new", {errors: {}, note:{}, user: request.user} );
 });
 
 // Create
 router.post("/", function(request, response){
+  debugger
   var params = request.body;
-  var note = new Note({title: params.title, body: params.body});
+  var note = new Note({title: params.title, body: params.body, user_id: request.user.id});
   note.save(function(err, note){
     if(err){
       console.log(err);
-      response.render("notes/new", {errors: err.errors, note: params});
+      response.render("notes/new", {errors: err.errors, note: params, user: request.user});
     }else{
       response.redirect("/notes/" + note._id);
     }
@@ -41,7 +42,7 @@ router.get("/:id", function(request, response, next){
       err.status = 404;
       next(err, request, response)
     } else {
-      response.render("notes/show", {note: note});
+      response.render("notes/show", {note: note, user: request.user});
     }
   });
 });
@@ -53,7 +54,7 @@ router.get("/:id/edit", function(request, response){
       response.render('error', {message: "Note not found",
                            error: {status: 404}});
     } else {
-      response.render("notes/edit", {note: note, errors: {}});
+      response.render("notes/edit", {note: note, user: request.user,  errors: {}});
     }
   });
 });
@@ -69,7 +70,7 @@ router.patch("/:id", function(request, response){
       note.body  = params.body;
       note.save(function(err, note){
         if(err) {
-          response.render("notes/edit", {errors: err.errors, note: note});
+          response.render("notes/edit", {errors: err.errors, user: request.user, note: note});
         } else {
           response.redirect("/notes/" + note._id);
         }
@@ -81,7 +82,7 @@ router.patch("/:id", function(request, response){
 router.delete("/:id", function(request, response){
   Note.remove({_id:request.params.id}, function(err, note){
     if(err){
-      response.render("notes/" + note.id, {errors: err.errors, note: note});
+      response.render("notes/" + note.id, {errors: err.errors, user: request.user, note: note});
     } else {
       response.redirect("/notes");
     }
@@ -100,7 +101,7 @@ router.post("/:id/add_reply", function(request, response){
         note.save(function(err, note){
           if(err){
             console.log(err);
-            response.render("notes/new", {errors: err.errors, reply_note: noteParams});
+            response.render("notes/new", {errors: err.errors, user: request.user, reply_note: noteParams});
           }else{
             response.redirect("/notes/" + basenote._id);
           }

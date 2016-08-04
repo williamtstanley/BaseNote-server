@@ -25,14 +25,21 @@ html
               a(href="/") Home
             li
               a(href="/notes") Notes
-            li
-              a(href="/notes/new") Create Note
+            if(user)
+              li
+                a(href="/notes/new") Create Note
 
           ul.nav.navbar-nav.navbar-right
-            li
-              a(href="#") Sign In
-            li
-              a(href="#") Sign Out
+            if(user)
+              li 
+                a(href="#") Hello, #{user.fullName()}
+              li
+                a(href="/users/logout") Sign Out
+            else
+              li
+                a(href="/users/login") Sign In
+              li
+                a(href="/users/register") Sign Up
     // navbar end //
     .container
       block content

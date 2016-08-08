@@ -24,7 +24,7 @@ router.get("/new", function(request, response){
 router.post("/", function(request, response){
   debugger
   var params = request.body;
-  var note = new Note({title: params.title, body: params.body, user_id: request.user.id});
+  var note = new Note({subject: params.subject, body: params.body, user_id: request.user.id});
   note.save(function(err, note){
     if(err){
       console.log(err);

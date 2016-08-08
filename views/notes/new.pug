@@ -5,7 +5,7 @@ block content
   form(method="POST" action="/notes")
     .form-group(class= errors.title? 'has-error' : "")
       label(for="title") Title
-      input.form-control#title(name="title" type="text" value=note.title)
+      input.form-control#title(name="subject" type="text" value=note.title)
       - if(errors.title)
         .help-block= errors.title
     .form-group(class= errors.body? 'has-error' : "") 

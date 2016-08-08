@@ -18,9 +18,9 @@ router.get("/", function(request, response, next){
 // Create
 router.post("/notes", function(request, response){
   var params = request.body;
-  console.log(params);
+
   var note = new Note();
-  note.title = params.title;
+  note.subject = params.subject;
   note.body = params.body;
   //optional params check 
   if (params.user_id){
@@ -42,7 +42,7 @@ router.post("/notes", function(request, response){
       console.log(err);
     }else{
       console.log("note created!");
-      response.json({ message: 'Note created!' });
+      response.json({ message: 'Note created!', note: note });
     }
   });
 });

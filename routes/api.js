@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var Note = require("../models/note");
-
+var User = require("../models/user")
 //code goes here
 // API LANDING RESPONSE
 router.get("/", function(request, response, next){
@@ -55,6 +55,16 @@ router.get("/notes", function(request, response, next){
       next(err, response, request);
     }else{
       response.json({notes: notes});
+    }
+  });
+});
+router.get("/users", function(request, response, next){
+  User.find(function(err, users){
+    if(err){
+      err.status = 404;
+      next(err, response, request);
+    }else{
+      response.json({users: users});
     }
   });
 });

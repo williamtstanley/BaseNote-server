@@ -1,8 +1,9 @@
 var express = require("express");
 var router = express.Router();
 var Note = require("../models/note");
-var User = require("../models/user")
-//code goes here
+var User = require("../models/user");
+var Company = require("../models/company");
+
 // API LANDING RESPONSE
 router.get("/", function(request, response, next){
   Note.find(function(err, notes){
@@ -58,6 +59,7 @@ router.get("/notes", function(request, response, next){
     }
   });
 });
+//get all users
 router.get("/users", function(request, response, next){
   User.find(function(err, users){
     if(err){
@@ -65,6 +67,17 @@ router.get("/users", function(request, response, next){
       next(err, response, request);
     }else{
       response.json({users: users});
+    }
+  });
+});
+//get all companies
+router.get("/companies", function(request, response, next){
+  Company.find(function(err, companies){
+    if(err){
+      err.status = 404;
+      next(err, response, request);
+    }else{
+      response.json({companies: companies});
     }
   });
 });
@@ -84,13 +97,24 @@ router.get("/notes/:note_id", function(request, response, next){
 //Update/edit
 router.patch("/notes/:note_id", function(request, response){
   Note.findOne({_id: request.params.note_id}, function(err, note){
+    debugger
     var params = request.body
     if(err) {
       response.render('error', {message: "Note not found",
                            error: {status: 404}});
     } else {
-      note.title = params.title;
-      note.body  = params.body;
+      if(params.subject){
+        note.subject = params.subject;
+      }
+      if(params.body){
+        note.body  = params.body;
+      }
+      if(params.company_id){
+        note.company_id = params.company_id;
+      }
+      if(params.completed){
+        note.completed = params.completed;
+      }
       note.save(function(err, note){
         if(err) {
           response.json({errors: err, note: note });

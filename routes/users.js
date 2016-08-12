@@ -13,6 +13,7 @@ router.post('/register', function(req, res) {
   newUser = new User({
     firstName: params.firstName,
     lastName: params.lastName,
+    role: params.role,
     email: params.email
   });
   console.log("req'd post request");  

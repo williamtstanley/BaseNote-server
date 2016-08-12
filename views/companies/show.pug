@@ -1,0 +1,45 @@
+extends ../layout
+
+block content
+  h1= company.name
+  p= company.address
+  p Phone: #{company.phone} | Fax: #{company.fax}
+  p Url: #{company.url}
+  .form-group  
+    form(action=`/companies/${company.id}?_method=delete` method='post')
+      .btn-toolbar 
+        a(href=`/companies/${company.id}/edit`)
+          button.btn.btn-success Edit Company
+        input.btn.btn-danger(type='submit' value='Delete Company')
+  hr
+  h2 Contacts
+  each contact, index in company.contacts
+    p #{contact.name}
+    p Position: #{contact.position}
+    p Work: #{contact.workPhone}
+    p Cell: #{contact.cellPhone}
+    p Email: #{contact.email}
+    hr
+
+  
+  h2 Add a Contact
+  form(method="POST" action=`/companies/${company.id}/add_contact`)
+    .form-group 
+      label(for="name") Name
+      input.form-control#name(name="name" type="text")
+    .form-group 
+      label(for="position") Position
+      input.form-control#position( name="position" type="text")
+    .form-group 
+      label(for="workPhone") Work Phone
+      input.form-control#work-phone( name="workPhone" type="text")
+    .form-group 
+      label(for="cellPhone") Cell Phone
+      input.form-control#cell-phone( name="cellPhone" type="text")
+    .form-group 
+      label(for="email") Email
+      input.form-control#email( name="email" type="text")
+    .form-group    
+      input.btn.btn-primary(type="submit" value="Add Contact")
+
+

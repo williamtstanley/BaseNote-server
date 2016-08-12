@@ -25,9 +25,14 @@ html
               a(href="/") Home
             li
               a(href="/notes") Notes
+            li
+              a(href="/companies") Companies
             if(user)
               li
                 a(href="/notes/new") Create Note
+            if(user)
+              li
+                a(href="/companies/new") Add Company
 
           ul.nav.navbar-nav.navbar-right
             if(user)

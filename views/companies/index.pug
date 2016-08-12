@@ -1,0 +1,9 @@
+extends ../layout
+
+block content
+  h1.text-center All Companies
+  each company, index in companies
+      h3
+        a(href='/companies/'+ company._id) #{company.name}
+      hr
+

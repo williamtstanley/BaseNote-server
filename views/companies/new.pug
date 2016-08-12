@@ -1,0 +1,33 @@
+extends ../layout
+
+block content
+  h1 New Company
+  form(method="POST" action="/companies")
+    .form-group(class= errors.name? 'has-error' : "")
+      label(for="name") Name
+      input.form-control#name(name="name" type="text" value=company.name)
+      - if(errors.name)
+        .help-block= errors.name
+    .form-group(class= errors.address? 'has-error' : "") 
+      label(for="address") Address
+      input.form-control#address(name="address" type="text" value=company.address)
+      - if(errors.address)
+        .help-block= errors.address
+    .form-group(class= errors.address? 'has-error' : "") 
+      label(for="phone") Phone
+      input.form-control#phone(name="phone" type="text" value=company.phone)
+      - if(errors.phone)
+        .help-block= errors.phone
+    .form-group(class= errors.fax? 'has-error' : "") 
+      label(for="fax") Fax
+      input.form-control#fax(name="fax" type="text" value=company.fax)
+      - if(errors.fax)
+        .help-block= errors.fax
+    .form-group(class= errors.url? 'has-error' : "") 
+      label(for="url") Url
+      input.form-control#url(name="url" type="text" value=company.url)
+      - if(errors.url)
+        .help-block= errors.url
+    .form-group    
+      input.btn.btn-primary(type="submit" value="save")
+

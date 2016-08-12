@@ -7,6 +7,7 @@ const EMAILREGEX = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]
 var UserSchema = new Schema({
   firstName: String,
   lastName: String,
+  role: String,
   email: {
     type: String, 
     validate: {

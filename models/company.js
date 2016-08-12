@@ -5,6 +5,7 @@ const EMAILREGEX = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]
 
 var Contacts = new Schema({
   name: String,
+  position: String,
   workPhone: String,
   cellPhone: String,
   email: {
